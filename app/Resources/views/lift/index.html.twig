@@ -50,9 +50,18 @@
     </div>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" integrity="sha512-LhZScx/m/WBAAHyiPnM+5hcsmCMjDDOgOqoT9wyIcs/QUPm6YxVNGZjQG5iP8dhWMWQAcUUTE3BkshtrlGbv2Q==" crossorigin="anonymous" />
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js" integrity="sha512-aDa+VOyQu6doCaYbMFcBBZ1z5zro7l/aur7DgYpt7KzNS9bjuQeowEX0JyTTeBTcRd0wwN7dfg5OThSKIWYj3A==" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/js/RepLogApp.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             var $wrapper = $('.js-rep-log-table');

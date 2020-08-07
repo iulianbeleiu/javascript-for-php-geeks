@@ -1,6 +1,6 @@
 'use strict';
 
-(function(window, $, Routing) {
+(function(window, $, Routing, Swal) {
     window.RepLogApp = function($wrapper) {
         this.$wrapper = $wrapper;
         this.helper = new Helper($wrapper);
@@ -52,6 +52,28 @@
             e.preventDefault();
 
             var $link = $(e.currentTarget);
+            var self = this;
+            Swal.fire({
+                title: 'Delete this log?',
+                text: "What? You did not actually lift this?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    self._deleteRepLog($link);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        },
+
+        _deleteRepLog: function($link) {
             $link.addClass('text-danger');
             $link.find('.fa')
                 .removeClass('fa-trash')
@@ -170,4 +192,4 @@
             return totalWeight;
         }
     });
-})(window, jQuery, Routing);
+})(window, jQuery, Routing, Swal);
