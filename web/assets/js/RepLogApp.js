@@ -60,17 +60,22 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes, delete it!',
+                showLoaderOnConfirm: true,
+                preConfirm: function() {
+                    return self._deleteRepLog($link);
+                }
             }).then((result) => {
                 if (result.value) {
-                    self._deleteRepLog($link);
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',
                         'success'
                     )
                 }
-            })
+            }).catch(function(arg) {
+                // cancel is cool
+            });
         },
 
         _deleteRepLog: function($link) {
@@ -83,7 +88,7 @@
             var deleteUrl = $link.data('url');
             var $row = $link.closest('tr');
             var self = this;
-            $.ajax({
+            return $.ajax({
                 url: deleteUrl,
                 method: 'DELETE',
             }).then(function(data) {
