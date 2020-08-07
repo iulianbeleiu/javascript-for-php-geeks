@@ -97,21 +97,15 @@
         },
 
         _saveRepLog: function(data) {
-            return new Promise(function(resolve, reject) {
-                $.ajax({
+            return $.ajax({
                     url: Routing.generate('rep_log_new'),
                     method: 'POST',
                     data: JSON.stringify(data),
                 }).then(function(data, textStatus, jqXHR) {
-                    $.ajax({
+                    return $.ajax({
                         url: jqXHR.getResponseHeader('Location')
-                    }).then(function(data) {
-                        resolve(data);
                     });
-                }).catch(function(jqXHR) {
-                    reject(jqXHR);
                 });
-            });
         },
 
         _mapErrorsToForm: function(errorData) {
